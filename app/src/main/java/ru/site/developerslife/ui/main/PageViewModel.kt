@@ -7,10 +7,15 @@ import androidx.lifecycle.ViewModel
 import ru.site.developerslife.api.DevLifeFetchr
 import ru.site.developerslife.db.PhotoItem
 import ru.site.developerslife.db.PhotoList
+import ru.site.developerslife.db.TabTitlesEn
 
 
-class PageViewModel(tabTitleEn: String) : ViewModel() {
-
+class PageViewModel(tabTitleEn: TabTitlesEn) : ViewModel() {
+    enum class Category(val category: String) {
+        LATEST("latest"),
+        BESTS("top"),
+        HOTS("hot")
+    }
     private val _index = MutableLiveData<Int>()
 
     private val devLifeFetchr = DevLifeFetchr(tabTitleEn)

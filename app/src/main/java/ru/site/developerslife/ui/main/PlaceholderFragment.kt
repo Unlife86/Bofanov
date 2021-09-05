@@ -26,21 +26,22 @@ import ru.site.developerslife.R
 import ru.site.developerslife.api.DevLifeApi
 import ru.site.developerslife.api.DevLifeFetchr
 import ru.site.developerslife.db.PhotoItem
+import ru.site.developerslife.db.TabTitlesEn
 
 private const val TAG = "PlaceholderFragment"
 
 class PlaceholderFragment : Fragment() {
-
+    private lateinit var category: TabTitlesEn
     private lateinit var pageViewModel: PageViewModel
     private lateinit var sectionLabel: TextView
     private lateinit var photoView: ImageView
     private lateinit var previous: FloatingActionButton
     private lateinit var next: FloatingActionButton
-    //private lateinit var category: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
+        pageViewModel = ViewModelProvider
+            .of(this, PageModelCreator(category)).get(PageViewModel::class.java).apply {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         }
     }
@@ -97,7 +98,7 @@ class PlaceholderFragment : Fragment() {
         })
 
         // Загрузим дефолтное состояние
-        sectionLabel.text = getString(R.string.empty_image_title)
+        sectionLabel.text = getString(R.string.hello_blank_fragment)
         Glide.with(this)
             .load(Uri.parse("file:///android_asset/loading.gif"))
             .fitCenter()
